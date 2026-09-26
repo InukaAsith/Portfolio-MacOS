@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Inuka Asith</title>
+    <link rel="icon" href="../img/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h4 class="logo-text"> >_ Inuka Asith <span>| Portfolio</span></h4>
+                </a>
+            </div>
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="more-btn" title="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="nav-menu">
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="body-container">
+        <div class="terminal-window-container">
+            <div class="content-wrapper">
+                <div class="left-section contact-left-section">
+                    <div class="top-section">
+                        <h1 class="section-title">Get In Touch</h1>
+                    </div>
+                    <section class="terminal-section">
+                        <div class="command-container">
+                            <h4 class="terminal-text"><span class="username">visitor</span><span class="at-symbol">@</span><span class="hostname">portfolio.inukaasith</span> <span class="directory">~/contact</span> <span class="dollar-symbol">$</span> <span class="help">cat contact-info.md</span></h4>
+                            <div class="terminal-out">
+                                <article class="text-segment-terminal">
+                                    <p class="contact-intro">Have a project idea, or for collabration, or just want to say hi, I'd love to hear from you! Feel free to reach out through links below.</p>
+                                </article>
+                            </div>
+                            <h4 class="terminal-text"><span class="username">visitor</span><span class="at-symbol">@</span><span class="hostname">portfolio.inukaasith</span> <span class="directory">~/contact</span> <span class="dollar-symbol">$</span> <span class="help">./get-contact-options.sh</span></h4>
+                            <div class="terminal-out">
+                                <div class="text-segment-terminal">
+                                    <a href="#contact-form" class="terminal-button-container-help">
+                                        <div class="terminal-button-help">
+                                            send-message<span>:</span> <br>
+                                            <span class="tabbed">
+                                                📧 Send me a direct message
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <a href="#socials" class="terminal-button-container-help">
+                                        <div class="terminal-button-help">
+                                            connect<span>:</span> <br>
+                                            <span class="tabbed">
+                                                🌐 Connect on social platforms
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <a href="mailto:inukaasith7@gmail.com" class="terminal-button-container-help">
+                                        <div class="terminal-button-help">
+                                            email<span>:</span> <br>
+                                            <span class="tabbed">
+                                                ✉️ Direct email communication
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <h4 class="terminal-text"><span class="username">visitor</span><span class="at-symbol">@</span><span class="hostname">portfolio.inukaasith</span> <span class="directory">~/contact</span> <span class="dollar-symbol">$</span> <span class="cursor">_</span></h4>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="other-section-wrapper">
+
+            <section id="contact-form" class="contact-form-section">
+                <div class="card-with-top-bar contact-form-card">
+                    <h2 class="section-heading">Send Message</h2>
+                    <div class="form-wrapper">
+                        <div class="terminal-header">
+                           
+                        </div>
+                        <form class="contact-form" action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name" class="form-label">
+                                    <span class="label-prompt">$</span> NAME:
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    class="form-input" 
+                                    placeholder="Enter your name..." 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <span class="label-prompt">$</span> EMAIL:
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-input" 
+                                    placeholder="your.email@example.com" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">
+                                    <span class="label-prompt">$</span> SUBJECT:
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="subject" 
+                                    name="subject" 
+                                    class="form-input" 
+                                    placeholder="What's this about?" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">
+                                    <span class="label-prompt">$</span> MESSAGE:
+                                </label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    class="form-textarea" 
+                                    rows="6" 
+                                    placeholder="Type your message here..." 
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">
+                                    <span class="btn-icon">></span> Send Message
+                                </button>
+                                <button type="reset" class="reset-btn">
+                                    <span class="btn-icon">×</span> Clear
+                                </button>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <span class="form-hint">Leave email field blank for anonymous message </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+=            <section id="socials" class="social-links-section">
+                <h2 class="section-heading social-heading">Connect With Me</h2>
+
+                <div class="social-grid">
+                    <a href="https://github.com/inukaasith" target="_blank" rel="noopener noreferrer" class="social-card card-with-buttons theme-purple">
+                        <div class="social-card-content">
+                            <div class="social-icon">
+                                <img src="../img/github-icon.svg" alt="GitHub">
+                            </div>
+                            <div class="social-info">
+                                <h3 class="social-title">GitHub</h3>
+                                <p class="social-handle">@inukaasith</p>
+                                <p class="social-desc">Check out my repositories</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://linkedin.com/in/inukaasith" target="_blank" rel="noopener noreferrer" class="social-card card-with-buttons theme-blue">
+                        <div class="social-card-content">
+                            <div class="social-icon">
+                                <img src="../img/linkedin-icon.svg" alt="LinkedIn">
+                            </div>
+                            <div class="social-info">
+                                <h3 class="social-title">LinkedIn</h3>
+                                <p class="social-handle">@inukaasith</p>
+                                <p class="social-desc">Let's connect professionally</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com/inukaasith7" target="_blank" rel="noopener noreferrer" class="social-card card-with-buttons theme-pink">
+                        <div class="social-card-content">
+                            <div class="social-icon">
+                                <img src="../img/instagram-icon.svg" alt="Instagram">
+                            </div>
+                            <div class="social-info">
+                                <h3 class="social-title">Instagram</h3>
+                                <p class="social-handle">@inukaasith7</p>
+                                <p class="social-desc">Follow for updates</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="mailto:inukaasith7@gmail.com" class="social-card card-with-buttons theme-yellow">
+                        <div class="social-card-content">
+                            <div class="social-icon">
+                                <img src="../img/email-icon.svg" alt="Email">
+                            </div>
+                            <div class="social-info">
+                                <h3 class="social-title">Email</h3>
+                                <p class="social-handle">inukaasith7@gmail.com</p>
+                                <p class="social-desc">Directly mail me</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="icon-card-section response-info-section">
+                <h2 class="section-heading-main">Quick Info</h2>
+                <div class="icon-card-grid">
+                    <div class="icon-card theme-blue">
+                        <div class="icon-card-icon">⚡</div>
+                        <h3 class="icon-card-title">Response Time</h3>
+                        <p class="icon-card-description">I typically respond within 24-48 hours during weekdays</p>
+                    </div>
+                    <div class="icon-card theme-purple">
+                        <div class="icon-card-icon">🌍</div>
+                        <h3 class="icon-card-title">Time Zone</h3>
+                        <p class="icon-card-description">Based in Sri Lanka (GMT+5:30)</p>
+                    </div>
+                    <div class="icon-card theme-pink">
+                        <div class="icon-card-icon">💬</div>
+                        <h3 class="icon-card-title">I'm Available For</h3>
+                        <p class="icon-card-description">Project inquiries, collaborations, and tech discussions</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Inuka Asith</h3>
+                <p>Let's build something that defies everything</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Me</h3>
+                <p>Phone: 0701964410</p>
+                <p>Email: inukaasith7@gmail.com</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Inuka Asith. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="bridge.js"></script>
+</body>
+</html>
+
