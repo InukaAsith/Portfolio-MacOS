@@ -32,6 +32,7 @@ export default function Mail({ win }) {
   const [compose, setCompose] = useState(!!win.props?.subject)
   const [draft, setDraft] = useState({ from: '', subject: win.props?.subject || '', body: win.props?.body || '' })
   const [sent, setSent] = useState([])
+  const [open, setOpen] = useState(false) // phones: a message is pushed over the list
 
   useEffect(() => {
     if (win.props?.subject) { setCompose(true); setDraft((d) => ({ ...d, subject: win.props.subject, body: win.props.body || d.body })) }
@@ -53,12 +54,12 @@ export default function Mail({ win }) {
   const msg = list.find((m) => m.id === sel) || list[0]
 
   return (
-    <div className="app split mail">
+    <div className={`app split mail${open || compose ? ' reading' : ''}`}>
       <aside className="sidebar" data-drag>
         <div className="sb-group">
           <div className="sb-head">Mailboxes</div>
           {[['Inbox', 'inbox', inbox.length], ['Drafts', 'note', 0], ['Sent', 'sent', sent.length]].map(([b, e, n]) => (
-            <button key={b} className={`sb-item${box === b && !compose ? ' on' : ''}`} onClick={() => { setBox(b); setCompose(false); setSel(null) }}><span className="sb-ico"><Ico n={e} /></span>{b}{n > 0 && <span className="sb-count">{n}</span>}</button>
+            <button key={b} className={`sb-item${box === b && !compose ? ' on' : ''}`} onClick={() => { setBox(b); setCompose(false); setSel(null); setOpen(false) }}><span className="sb-ico"><Ico n={e} /></span>{b}{n > 0 && <span className="sb-count">{n}</span>}</button>
           ))}
         </div>
         <div className="sb-group">
@@ -74,7 +75,7 @@ export default function Mail({ win }) {
         <div className="scroll">
           {list.length === 0 && <p className="muted pad">No messages</p>}
           {list.map((m) => (
-            <button key={m.id} className={`mail-item${msg?.id === m.id && !compose ? ' on' : ''}`} onClick={() => { setSel(m.id); setCompose(false) }}>
+            <button key={m.id} className={`mail-item${msg?.id === m.id && !compose ? ' on' : ''}`} onClick={() => { setSel(m.id); setCompose(false); setOpen(true) }}>
               <div className="mi-top"><b>{m.from}</b><small>{m.time}</small></div>
               <div className="mi-subj">{m.subject}</div>
               <div className="mi-prev">{m.preview}</div>
@@ -84,6 +85,7 @@ export default function Mail({ win }) {
       </section>
       <main className="main mail-read">
         <header className="toolbar" data-drag>
+          <button className="mail-back" onClick={() => { setOpen(false); setCompose(false) }}><Glyph.back /> {box}</button>
           <div className="tb-actions">
             {!compose && <button onClick={() => { setCompose(true); setDraft((d) => ({ ...d, subject: msg ? `Re: ${msg.subject}` : '' })) }}>Reply</button>}
           </div>

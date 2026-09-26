@@ -538,7 +538,18 @@ input, textarea, .prose, .t-line, .mail-msg, .resume-page, .card p, .pj-detail, 
 .ios-app-body .app.split:not(.notes) > .sidebar .sb-item:not(.on) .sb-ico { opacity: .75; }
 .ios-app-body .app.split:not(.notes) > .sidebar .set-ico { width: 24px; height: 24px; font-size: 13px; }
 .ios-app-body .app.split > .main { order: 1; flex: 1; min-height: 0; }
-.ios-app-body .mail-list { max-height: 34%; }
+.ios-app-body .mail-list { order: 1; flex: 1; min-height: 0; max-height: none; border: 0; }
+/* Mail: the inbox fills the screen; a message (or compose) pushes over it */
+.mail-back { display: none; }
+.ios-app-body .mail .mail-read { display: none; }
+.ios-app-body .mail.reading .mail-list { display: none; }
+.ios-app-body .mail.reading .mail-read { display: flex; }
+.ios-app-body .mail-back { display: flex; align-items: center; gap: 2px; font-size: 15px; font-weight: 500; color: var(--accent); }
+.ios-app-body .mail-item.on { background: none; color: inherit; }
+.ios-app-body .mail-item.on small, .ios-app-body .mail-item.on .mi-prev { color: var(--text2); }
+.ios-app-body .mail-msg { padding: 4px 18px 24px; }
+.ios-app-body .compose { padding: 0 16px 16px; }
+.ios-app-body .c-foot .muted { font-size: 11px; }
 /* Weather: cities as compact bottom tabs */
 .ios-app-body .weather > .wx-side { gap: 6px !important; justify-content: space-around; background: rgba(0, 0, 0, .22) !important; }
 .ios-app-body .weather .wx-card { min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0; padding: 6px 4px; box-shadow: none; background: none; }
@@ -549,7 +560,6 @@ input, textarea, .prose, .t-line, .mail-msg, .resume-page, .card p, .pj-detail, 
 /* Notes: note fills the screen, the list slides over it */
 @media (max-width: 767px) {
   .notes-back { display: flex; align-items: center; gap: 2px; font-size: 15px; color: #e6b800; font-weight: 500; }
-  .notes { position: relative; }
   .notes .notes-list { position: absolute; inset: 0; z-index: 5; width: auto; max-height: none; margin: 0; border-radius: 0; padding: 12px; background: var(--win-solid); transform: translateX(-100%); transition: transform .35s var(--ease); }
   .notes.show-list .notes-list { transform: none; }
   .notes .notes-list .notes-search { display: flex; }

@@ -42,6 +42,34 @@ function Safari() {
   )
 }
 
+function Instagram() {
+  const u = useUid()
+  return (
+    <svg viewBox="0 0 100 100" className="app-svg">
+      <defs>
+        <radialGradient id={`ig${u}`} cx="28" cy="108" r="118" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#ffdd55" />
+          <stop offset=".12" stopColor="#ffd046" />
+          <stop offset=".32" stopColor="#ff6a2b" />
+          <stop offset=".55" stopColor="#ff1f6b" />
+          <stop offset=".78" stopColor="#c81fc9" />
+          <stop offset="1" stopColor="#5b3cf0" />
+        </radialGradient>
+        <radialGradient id={`igb${u}`} cx="10" cy="4" r="44" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#3f6dff" stopOpacity=".85" />
+          <stop offset="1" stopColor="#5b3cf0" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <path d={SQ} fill={`url(#ig${u})`} />
+      <path d={SQ} fill={`url(#igb${u})`} />
+      <rect x="23" y="23" width="54" height="54" rx="16" fill="none" stroke="#fff" strokeWidth="6.5" />
+      <circle cx="50" cy="50" r="12.5" fill="none" stroke="#fff" strokeWidth="6.5" />
+      <circle cx="66.5" cy="33.5" r="4" fill="#fff" />
+      <path d={SQ} fill="none" stroke="rgba(255,255,255,.18)" strokeWidth="1" />
+    </svg>
+  )
+}
+
 function Folder() {
   const u = useUid()
   return (
@@ -189,13 +217,7 @@ const icons = {
       <text x="50" y="68" textAnchor="middle" fontSize="48" fontWeight="800" fill="#fff" fontFamily="Inter, Helvetica, sans-serif">in</text>
     </Tile>
   ),
-  instagram: (
-    <Tile id="instagram" from="#833ab4" to="#fcb045">
-      <rect x="24" y="24" width="52" height="52" rx="15" fill="none" stroke="#fff" strokeWidth="6" />
-      <circle cx="50" cy="50" r="12" fill="none" stroke="#fff" strokeWidth="6" />
-      <circle cx="66" cy="34" r="3.5" fill="#fff" />
-    </Tile>
-  ),
+  instagram: <Instagram />,
   about: (
     <Tile id="about" from="#3a3a3f" to="#141416">
       <text x="50" y="62" textAnchor="middle" fontSize="36" fontWeight="700" fill="#fff" fontFamily="SF Mono, JetBrains Mono, monospace">{'>_'}</text>
