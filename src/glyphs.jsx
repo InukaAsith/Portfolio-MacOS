@@ -30,6 +30,8 @@ export const Glyph = {
   ext: (p) => (<svg viewBox="0 0 24 24" width="13" height="13" {...p}><path d="M14 4.5h5.5V10M19.5 4.5L11 13M18 14v4.5a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1H10" {...P} strokeWidth="2" /></svg>),
   power: (p) => (<svg viewBox="0 0 24 24" width="18" height="18" {...p}><path d="M12 3v8.5M7 5.8a8 8 0 1 0 10 0" {...P} strokeWidth="2.2" /></svg>),
   restart: (p) => (<svg viewBox="0 0 24 24" width="18" height="18" {...p}><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9" {...P} strokeWidth="2.2" /></svg>),
+  expand: (p) => (<svg viewBox="0 0 24 24" width="16" height="16" {...p}><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" {...P} strokeWidth="2" /></svg>),
+  shrink: (p) => (<svg viewBox="0 0 24 24" width="16" height="16" {...p}><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" {...P} strokeWidth="2" /></svg>),
   sleep: (p) => (<svg viewBox="0 0 24 24" width="18" height="18" {...p}><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z" {...P} strokeWidth="2" /></svg>),
   arrow: (p) => (<svg viewBox="0 0 24 24" width="16" height="16" {...p}><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5" {...P} strokeWidth="2.4" /></svg>),
   copy: (p) => (<svg viewBox="0 0 24 24" width="15" height="15" {...p}><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" {...P} /><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" {...P} /></svg>),

@@ -174,7 +174,7 @@ kbd { font-family: var(--font); }
   -webkit-mask-image: linear-gradient(90deg, #000 44%, transparent 56%); mask-image: linear-gradient(90deg, #000 44%, transparent 56%);
   -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0;
 }
-.iw.in { opacity: 1; animation: write 1.6s cubic-bezier(.45, .05, .3, 1) forwards; }
+.iw.in { opacity: 1; animation: write 1.4s cubic-bezier(.45, .05, .3, 1) forwards; }
 .iw.gone { opacity: 0; transform: translateY(-16px) scale(.98); filter: blur(8px); -webkit-mask-position: 0 0; mask-position: 0 0; transition: opacity .55s ease, transform .55s ease, filter .55s ease; }
 @keyframes write { to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
 /* greetings are SVG text drawn like ink: outline strokes on, then the fill floods in */
@@ -184,8 +184,8 @@ kbd { font-family: var(--font); }
   -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0;
 }
 .iw-svg text { fill-opacity: 0; stroke-width: 1.4; stroke-dasharray: 1100; stroke-dashoffset: 1100; stroke-linecap: round; stroke-linejoin: round; }
-.iw-svg.in { opacity: 1; animation: write 1.6s cubic-bezier(.45, .05, .3, 1) forwards; }
-.iw-svg.in text { animation: pen 2.1s cubic-bezier(.35, .1, .25, 1) forwards, ink 1s 1s ease forwards; }
+.iw-svg.in { opacity: 1; animation: write 1.4s cubic-bezier(.45, .05, .3, 1) forwards; }
+.iw-svg.in text { animation: pen 1.8s cubic-bezier(.35, .1, .25, 1) forwards, ink .85s .85s ease forwards; }
 .iw-svg.gone { opacity: 0; transform: translateY(-16px) scale(.98); filter: blur(8px); -webkit-mask-position: 0 0; mask-position: 0 0; transition: opacity .55s ease, transform .55s ease, filter .55s ease; }
 .iw-svg.gone text { fill-opacity: 1; stroke-dashoffset: 0; }
 @keyframes pen { to { stroke-dashoffset: 0; } }
@@ -200,7 +200,7 @@ kbd { font-family: var(--font); }
   -webkit-mask-image: linear-gradient(90deg, #000 44%, transparent 56%); mask-image: linear-gradient(90deg, #000 44%, transparent 56%);
   -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0;
 }
-.iw.name.in .name-text { animation: write 1.6s cubic-bezier(.45, .05, .3, 1) forwards; }
+.iw.name.in .name-text { animation: write 1.4s cubic-bezier(.45, .05, .3, 1) forwards; }
 .iw.name small { min-height: 1.4em; display: flex; align-items: center; opacity: 0; transition: opacity .4s; margin-top: 16px; font: 500 clamp(10px, 1.1vw, 14px) var(--font); letter-spacing: .32em; text-transform: uppercase; color: #ffd9b3; }
 .iw.name small.typing { opacity: 1; }
 .iw.name .caret { display: inline-block; width: 2px; height: 1.15em; margin-left: 4px; background: #ffb36b; animation: caret 1s steps(1) infinite; }
@@ -576,24 +576,24 @@ input[type='range']::-moz-range-thumb { width: 24px; height: 24px; border-radius
 .ios.in-app .ios-home { transform: scale(.9); opacity: .35; filter: blur(4px); pointer-events: none; }
 .ios-pages { flex: 1; min-height: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .ios-pages::-webkit-scrollbar { display: none; }
-.ios-page { flex: 0 0 100%; scroll-snap-align: start; padding: 12px 20px 0; display: flex; flex-direction: column; gap: 22px; overflow: hidden; }
+.ios-page { flex: 0 0 100%; scroll-snap-align: start; padding: 12px max(20px, calc(50% - 220px)) 0; display: flex; flex-direction: column; gap: 22px; overflow: hidden; }
+.ios-page[hidden] { display: none; }
 .ios-widgets { display: flex; flex-direction: column; gap: 14px; }
 .ios-widgets .w-profile { width: 100%; height: auto; min-height: 148px; }
 .ios-widgets .w-profile img { width: 84px; height: 84px; }
 .ios-wrow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.ios-wrow .widget { width: auto; height: auto; aspect-ratio: 1; max-height: 164px; }
+.ios-wrow .widget { width: 100%; height: auto; aspect-ratio: 1; max-height: 164px; }
 .ios-wrow .w-cal .wc-grid span { height: 15px; line-height: 15px; width: 15px; }
-.ios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 8px; }
+/* Phone.jsx measures how many whole rows fit and flows the rest onto the next page */
+.ios-grid { --ios-row: 86px; flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: var(--ios-row); align-content: start; gap: 20px 8px; overflow: hidden; }
 .ios-icon { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; font-size: 11.5px; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .55); animation: wIn .6s calc(.3s + var(--i, 0) * .04s) both var(--ease); }
 .ios-icon .app-icon { width: min(62px, 16vw); transition: transform .15s, filter .15s; }
 .ios-icon:active .app-icon { transform: scale(.88); filter: brightness(.75); }
-@media (min-height: 680px) { .ios-icon.ios-short { display: none; } }
-@media (max-height: 679px) { .ios-icon.ios-tall { display: none; } }
 .ios-icon span { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ios-dots { display: flex; justify-content: center; gap: 8px; padding: 10px 0; }
 .ios-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .4); transition: background .2s; }
 .ios-dots i.on { background: #fff; }
-.ios-dock { margin: 0 10px calc(10px + env(safe-area-inset-bottom)); padding: 13px 14px; border-radius: 34px; display: grid; grid-template-columns: repeat(4, 1fr); justify-items: center; background: rgba(255, 255, 255, .16); }
+.ios-dock { margin: 0 max(10px, calc(50% - 230px)) calc(10px + env(safe-area-inset-bottom)); padding: 13px 14px; border-radius: 34px; display: grid; grid-template-columns: repeat(4, 1fr); justify-items: center; background: rgba(255, 255, 255, .16); }
 .ios-app { position: absolute; inset: 0; z-index: 30; overflow: hidden; background: var(--win-solid); transform-origin: 0 0; }
 .ios-app-body { position: absolute; top: 38px; left: 0; right: 0; bottom: 0; }
 .ios-app-body .app:not(.split) > .toolbar { padding-left: 16px; }

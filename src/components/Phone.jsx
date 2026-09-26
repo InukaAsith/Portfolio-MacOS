@@ -10,11 +10,31 @@ import { AppBoundary } from './Window'
 // iOS-style home screen for phones: two pages, a dock, full-screen apps and AssistiveTouch.
 const LABEL = { finder: 'About Me', resume: 'Résumé', vscode: 'VS Code', settings: 'Settings', github: 'GitHub', linkedin: 'LinkedIn', instagram: 'Instagram' }
 const TITLE = { safari: 'Safari', terminal: 'Terminal', mail: 'Mail', notes: 'Notes', projects: 'Projects', photos: 'Photos', calculator: 'Calculator', calendar: 'Calendar', clock: 'Clock', weather: 'Weather' }
-const PAGE1 = ['finder', 'resume', 'notes', 'photos']
-const EXTRA = ['vscode', 'github', 'linkedin', 'instagram'] // page 1 on tall screens, page 2 on short ones
-const PAGE2 = ['calendar', 'weather', 'clock', 'calculator', 'settings']
+// home screen icons in order: whatever doesn't fit in whole rows under the widgets flows onto the next page
+const HOME = ['finder', 'resume', 'notes', 'photos', 'vscode', 'github', 'linkedin', 'instagram', 'calendar', 'weather', 'clock', 'calculator', 'settings']
+const COLS = 4
 const DOCK = ['projects', 'terminal', 'safari', 'mail']
 const EASE = 'cubic-bezier(.2,.9,.25,1)'
+
+// how many icons fit in whole rows of a grid, from its size and its CSS row track / gap
+function useCapacity() {
+  const ref = useRef(null)
+  const [n, setN] = useState(null)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const measure = () => {
+      const cs = getComputedStyle(el)
+      const row = parseFloat(cs.getPropertyValue('--ios-row')) || 86, gap = parseFloat(cs.rowGap) || 0
+      setN(Math.max(0, Math.floor((el.clientHeight + gap) / (row + gap))) * COLS)
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  return [ref, n]
+}
 
 function useClock() {
   const [now, set] = useState(new Date())
@@ -30,6 +50,11 @@ export default function Phone({ power }) {
   const pagesRef = useRef(null)
   const appRef = useRef(null)
   const origin = useRef(null)
+  const [firstRef, first] = useCapacity()
+  const [restRef, rest] = useCapacity()
+  const pages = [HOME.slice(0, first ?? HOME.length)]
+  for (let i = pages[0].length; i < HOME.length; i += Math.max(COLS, rest ?? HOME.length)) pages.push(HOME.slice(i, i + Math.max(COLS, rest ?? HOME.length)))
+  if (pages.length < 2) pages.push([]) // keep a second page mounted so its capacity can be measured
   const top = [...os.windows].filter((w) => !w.closing).sort((a, b) => b.z - a.z)[0]
   const App = top && apps[top.app]
 
@@ -43,7 +68,7 @@ export default function Phone({ power }) {
     return () => clearTimeout(t)
   }, []) // eslint-disable-line
 
-  const iconRect = (id) => [...document.querySelectorAll(`[data-ios="${id}"] .app-icon`)].find((el) => el.offsetParent)?.getBoundingClientRect() // skip the hidden copy
+  const iconRect = (id) => document.querySelector(`[data-ios="${id}"] .app-icon`)?.getBoundingClientRect()
   const zoom = (r) => {
     const w = innerWidth, h = innerHeight
     const rr = r || { left: w / 2 - 30, top: h / 2 - 30, width: 60, height: 60 }
@@ -113,14 +138,16 @@ export default function Phone({ power }) {
               <ProfileWidget />
               <div className="ios-wrow"><WeatherWidget /><CalendarWidget /></div>
             </div>
-            <div className="ios-grid">{PAGE1.map((id) => icon(id))}{EXTRA.map((id) => icon(id, true, ' ios-tall'))}</div>
+            <div className="ios-grid" ref={firstRef}>{pages[0].map((id) => icon(id))}</div>
           </section>
-          <section className="ios-page">
-            <div className="ios-grid">{PAGE2.map((id) => icon(id))}{EXTRA.map((id) => icon(id, true, ' ios-short'))}</div>
-          </section>
+          {pages.slice(1).map((ids, i) => (
+            <section className="ios-page" key={i} hidden={!ids.length}>
+              <div className="ios-grid" ref={i === 0 ? restRef : undefined}>{ids.map((id) => icon(id))}</div>
+            </section>
+          ))}
         </div>
         <div className="ios-dots">
-          {[0, 1].map((i) => <i key={i} className={page === i ? 'on' : ''} onClick={() => pagesRef.current.scrollTo({ left: i * pagesRef.current.clientWidth, behavior: 'smooth' })} />)}
+          {pages.filter((ids, i) => i === 0 || ids.length).map((_, i) => <i key={i} className={page === i ? 'on' : ''} onClick={() => pagesRef.current.scrollTo({ left: i * pagesRef.current.clientWidth, behavior: 'smooth' })} />)}
         </div>
         <div className="ios-dock glass">{DOCK.map((id) => icon(id, false))}</div>
       </div>

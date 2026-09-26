@@ -139,7 +139,7 @@ export function Boot({ onReveal, onFinish }) {
   useEffect(() => {
     let raf
     const f = (now) => {
-      const tl = Math.min(1, (now - t0) / 4000)
+      const tl = Math.min(1, (now - t0) / 3400)
       setP((prev) => Math.max(prev, Math.min(real, tl * (2 - tl))))
       raf = requestAnimationFrame(f)
     }
@@ -148,7 +148,7 @@ export function Boot({ onReveal, onFinish }) {
   }, [real, t0])
 
   useEffect(() => {
-    const ts = [setTimeout(() => setWord(0), 400), setTimeout(() => setWord(1), 2300), setTimeout(() => setWord(2), 4100), setTimeout(() => setWord(3), 6100)]
+    const ts = [setTimeout(() => setWord(0), 350), setTimeout(() => setWord(1), 2000), setTimeout(() => setWord(2), 3550), setTimeout(() => setWord(3), 5250)]
     return () => ts.forEach(clearTimeout)
   }, [])
 
@@ -158,13 +158,13 @@ export function Boot({ onReveal, onFinish }) {
     let iv
     const start = setTimeout(() => {
       const t = Date.now()
-      iv = setInterval(() => { const n = Math.min(profile.role.length, Math.floor((Date.now() - t) / 45) + 1); setTyped(n); if (n >= profile.role.length) clearInterval(iv) }, 30)
-    }, 1300)
+      iv = setInterval(() => { const n = Math.min(profile.role.length, Math.floor((Date.now() - t) / 38) + 1); setTyped(n); if (n >= profile.role.length) clearInterval(iv) }, 30)
+    }, 1100)
     return () => { clearTimeout(start); clearInterval(iv) }
   }, [word])
 
   const finished = p >= 1 && word >= 3 && typed >= profile.role.length
-  useEffect(() => { if (finished && !done) { const t = setTimeout(() => setDone(true), 1500); return () => clearTimeout(t) } }, [finished, done])
+  useEffect(() => { if (finished && !done) { const t = setTimeout(() => setDone(true), 1250); return () => clearTimeout(t) } }, [finished, done])
 
   useEffect(() => {
     if (!done || out) return
@@ -341,6 +341,7 @@ export function Lock({ onUnlock, leaving, wall }) {
   const [pw, setPw] = useState('')
   const [entered, setEntered] = useState(false)
   const [note, setNote] = useState(true)
+  const [t0] = useState(() => Date.now())
 
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 1000)
@@ -361,8 +362,11 @@ export function Lock({ onUnlock, leaving, wall }) {
 
   const [timeRef, glass] = useGlassClock([h, m])
 
+  // click anywhere unlocks, except inside the password field; ignore the click that skipped the intro
+  const clickAway = (e) => { if (Date.now() - t0 > 600 && !e.target.closest('.lock-pw, .lock-note, .lock-avatar')) unlock() }
+
   return (
-    <div className={`lock${entered ? ' in' : ''}${leaving ? ' out' : ''}`} style={{ '--wall-img': wall }}>
+    <div className={`lock${entered ? ' in' : ''}${leaving ? ' out' : ''}`} style={{ '--wall-img': wall }} onClick={clickAway}>
       <div className="lock-status">
         <Glyph.wifi />
         <span className="batt"><i /></span>
@@ -388,7 +392,7 @@ export function Lock({ onUnlock, leaving, wall }) {
           <input autoFocus type="password" placeholder="Enter Password" value={pw} onChange={(e) => setPw(e.target.value)} aria-label="Password (anything works)" />
           <button type="submit" aria-label="Log in" className={pw ? 'on' : ''}><Glyph.arrow /></button>
         </div>
-        <div className="lock-hint">Press <kbd>return</kbd> or click your photo or any password works</div>
+        <div className="lock-hint">Press <kbd>return</kbd> or click anywhere to unlock</div>
       </form>
     </div>
   )

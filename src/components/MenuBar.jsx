@@ -144,8 +144,20 @@ export default function MenuBar({ power }) {
   )
 }
 
+function useFullscreen() {
+  const [fs, setFs] = useState(!!document.fullscreenElement)
+  useEffect(() => {
+    const upd = () => setFs(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', upd)
+    return () => document.removeEventListener('fullscreenchange', upd)
+  }, [])
+  const toggle = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.())?.catch?.(() => {})
+  return [fs, toggle]
+}
+
 function ControlCenter() {
   const os = useOS()
+  const [fs, toggleFs] = useFullscreen()
   const tile = (key, icon, label, sub) => (
     <button className={`cc-toggle${os[key] ? ' on' : ''}`} onClick={() => os.set({ [key]: !os[key] })}>
       <span className="cc-dot">{icon}</span>
@@ -164,8 +176,8 @@ function ControlCenter() {
           <button className={`cc-card cc-mode${os.dark ? ' on' : ''}`} onClick={() => os.set({ theme: os.dark ? 'light' : 'dark' })}>
             <span className="cc-dot">{os.dark ? <Glyph.moon /> : <Glyph.sun />}</span><b>{os.dark ? 'Dark Mode' : 'Light Mode'}</b>
           </button>
-          <button className={`cc-card cc-mode${os.dnd ? ' on' : ''}`} onClick={() => os.set({ dnd: !os.dnd })}>
-            <span className="cc-dot"><Glyph.sleep /></span><b>Focus</b>
+          <button className={`cc-card cc-mode${fs ? ' on' : ''}`} onClick={toggleFs}>
+            <span className="cc-dot">{fs ? <Glyph.shrink /> : <Glyph.expand />}</span><b>Full Screen</b>
           </button>
         </div>
       </div>
